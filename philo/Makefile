@@ -1,1 +1,1 @@
-SRCS	=	main.c utils.c
+SRCS	=	main.c utils.c init.c free.c logic.c

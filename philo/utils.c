@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:12:45 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/09/12 09:36:07 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:00:59 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int	check_args(int ac, char **av)
 	int	i;
 
 	i = 1;
-	// if (ac != 5 || ac != 6 || ac != 2)
-	// 	return (0);
+	if (ac != 5 && ac != 6)
+		return (0);
 	while (i <= ac - 1)
 	{
 		if (!is_num(av[i++]))

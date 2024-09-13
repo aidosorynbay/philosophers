@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:53:14 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/09/13 19:42:26 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/09/13 21:07:17 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct s_philo
 	t_info			*philo_info;
 	pthread_mutex_t	my_fork;
 	pthread_mutex_t	right_fork;
+	int				my_fork_locked;
+	int				right_fork_locked;
 	struct s_philo	*next;
 	pthread_mutex_t	deadlock;
 	pthread_mutex_t	meallock;

@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 17:44:08 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/09/13 20:14:48 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/09/13 21:07:47 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ static void	create_thread(t_philo *philo[], t_info *info)
 	while (i < info->num_philo)
 	{
 		if (pthread_create(&philo[i]->thread, NULL, routine, (void *)philo[i]))
-			(perror("Failed creating thread."), exit(1));	
+			(perror("Failed creating thread."), exit(1));
+		i++;
 	}
 }
 
@@ -79,6 +80,8 @@ void	init_philo(t_philo *philo[], t_info *info)
 		philo[i]->index = i;
 		philo[i]->philo_info = info;
 		philo[i]->is_philo_dead = 0;
+		philo[i]->my_fork_locked = 0;
+		philo[i]->right_fork_locked = 0;
 		pthread_mutex_init(&philo[i]->my_fork, NULL);
 		pthread_mutex_init(&philo[i]->right_fork, NULL);
 		pthread_mutex_init(&philo[i]->deadlock, NULL);

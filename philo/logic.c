@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:16:56 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/09/14 18:21:57 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/09/14 21:07:00 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	eating(t_philo *philo, struct timeval *start)
 
 	elapsed = (seconds * 1000) + (useconds / 1000);
 	printf("\033[1;32m%ld %i is eating\033[0m\n", elapsed, philo->index);
-	usleep(philo->philo_info->time_to_eat / 1000);
+	usleep(philo->philo_info->time_to_eat * 1000);
 }
 
 void	is_sleeping(t_philo *philo, struct timeval *start)
@@ -56,7 +56,7 @@ void	is_sleeping(t_philo *philo, struct timeval *start)
 
 	elapsed = (seconds * 1000) + (useconds / 1000);
 	printf("\033[1;34m%ld %i is sleeping\033[0m\n", elapsed, philo->index);
-	usleep(philo->philo_info->time_to_die / 1000);
+	usleep(philo->philo_info->time_to_sleep * 1000);
 }
 
 void	is_thinking(t_philo *philo, struct timeval *start)
@@ -74,31 +74,95 @@ void	is_thinking(t_philo *philo, struct timeval *start)
 	printf("\033[1;35m%ld %i is thinking\033[0m\n", elapsed, philo->index);
 }	
 
-void	*routine(void *structure)
+void *routine(void *structure)
 {
-	t_philo			*philo;
-	struct timeval	start;
+    t_philo *philo;
+    struct timeval start;
 
-	philo = (t_philo *)structure;
-	gettimeofday(&start, NULL);
-	while (philo->is_philo_dead == 0)
-	{
-		if (philo->my_fork_locked == 0 && philo->right_fork_locked == 0)
-		{
-			pthread_mutex_lock(&philo->my_fork);
-			taken_fork(philo, &start);
-			philo->my_fork_locked = 1;
-			pthread_mutex_lock(&philo->right_fork);
-			taken_fork(philo, &start);
-			eating(philo, &start);
-			philo->right_fork_locked = 1;
-			pthread_mutex_unlock(&philo->my_fork);
-			philo->my_fork_locked = 0;
-			pthread_mutex_unlock(&philo->right_fork);
-			philo->right_fork_locked = 0;
-		}
-		is_sleeping(philo, &start);
-		is_thinking(philo, &start);
-	}
-	return (NULL);
+    philo = (t_philo *)structure;
+    gettimeofday(&start, NULL);
+
+    while (philo->is_philo_dead == 0)
+    {
+        // Odd-numbered philosophers eat first
+        if (philo->index % 2 != 0)
+        {
+            if (philo->done_eating == 0)
+			{
+				pthread_mutex_lock(&philo->my_fork);
+				philo->my_fork_locked = 1;
+				taken_fork(philo, &start);
+				pthread_mutex_lock(&philo->next->my_fork);
+				philo->next->my_fork_locked = 1;
+				taken_fork(philo, &start);
+				
+				// Even-indexed philosopher is eating
+				eating(philo, &start);
+				
+				// Release forks
+				pthread_mutex_unlock(&philo->my_fork);
+				philo->my_fork_locked = 0;
+				pthread_mutex_unlock(&philo->next->my_fork);
+				philo->next->my_fork_locked = 0;
+				philo->done_eating = 1;
+			}
+            
+            // Sleep and think after eating
+			if (philo->done_eating == 1)
+			{
+            	is_sleeping(philo, &start);
+			}
+			philo->done_eating = 0;
+            if (philo->my_fork_locked == 1 || philo->next->my_fork_locked == 1)
+            {
+                is_thinking(philo, &start);
+                // usleep(100); // Short delay to avoid CPU overload
+            }
+        }
+        else
+        {
+            // Sleep a bit to ensure odd philosophers go first
+            usleep(100);  // Adjust timing if needed
+            
+            // Even-numbered philosophers eat after odd-numbered ones
+            if (philo->done_eating == 0)
+			{
+				pthread_mutex_lock(&philo->my_fork);
+				philo->my_fork_locked = 1;
+				taken_fork(philo, &start);
+				pthread_mutex_lock(&philo->next->my_fork);
+				philo->next->my_fork_locked = 1;
+				taken_fork(philo, &start);
+				
+				// Even-indexed philosopher is eating
+				eating(philo, &start);
+				
+				// Release forks
+				pthread_mutex_unlock(&philo->my_fork);
+				philo->my_fork_locked = 0;
+				pthread_mutex_unlock(&philo->next->my_fork);
+				philo->next->my_fork_locked = 0;
+				philo->done_eating = 1;
+			}
+            // Sleep and think after eating
+			if (philo->done_eating == 1)
+			{
+            	is_sleeping(philo, &start);
+			}
+			philo->done_eating = 0;
+			if (philo->my_fork_locked == 1 || philo->next->my_fork_locked == 1)
+            {
+                is_thinking(philo, &start);
+                // usleep(100); // Short delay to avoid CPU overload
+            }
+        }
+        // Short delay to avoid high CPU usage
+        // usleep(100);
+    }
+    return NULL;
 }
+
+
+
+
+

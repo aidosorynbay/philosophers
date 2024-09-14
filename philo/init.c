@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 17:44:08 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/09/14 15:56:59 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/09/14 20:50:46 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ static void	link_forks(t_philo *philo[], t_info *info)
 	while (i < info->num_philo)
 	{
 		if (i < info->num_philo - 1)
-			philo[i]->right_fork = philo[i + 1]->my_fork;
+			philo[i]->next->my_fork = philo[i + 1]->my_fork;
 		else
-			philo[i]->right_fork = philo[0]->my_fork;
+			philo[i]->next->my_fork = philo[0]->my_fork;
 		i++;
 	}
 	
@@ -64,7 +64,7 @@ static void	create_thread(t_philo *philo[], t_info *info)
 		if (pthread_create(&philo[i]->thread, NULL, routine, (void *)philo[i]))
 			(perror("Failed creating thread."), exit(1));
 		i++;
-		usleep(100);
+		// usleep(100);
 	}
 }
 
@@ -83,8 +83,8 @@ void	init_philo(t_philo *philo[], t_info *info)
 		philo[i]->is_philo_dead = 0;
 		philo[i]->my_fork_locked = 0;
 		philo[i]->right_fork_locked = 0;
+		philo[i]->done_eating = 0;
 		pthread_mutex_init(&philo[i]->my_fork, NULL);
-		pthread_mutex_init(&philo[i]->right_fork, NULL);
 		pthread_mutex_init(&philo[i]->deadlock, NULL);
 		pthread_mutex_init(&philo[i]->meallock, NULL);
 		pthread_mutex_init(&philo[i]->writelock, NULL);

@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 17:44:08 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/09/13 21:07:47 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/09/14 15:56:59 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static void	create_thread(t_philo *philo[], t_info *info)
 		if (pthread_create(&philo[i]->thread, NULL, routine, (void *)philo[i]))
 			(perror("Failed creating thread."), exit(1));
 		i++;
+		usleep(100);
 	}
 }
 

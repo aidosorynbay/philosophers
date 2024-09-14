@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:16:56 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/09/14 16:31:08 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:21:57 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	eating(t_philo *philo, struct timeval *start)
 
 	elapsed = (seconds * 1000) + (useconds / 1000);
 	printf("\033[1;32m%ld %i is eating\033[0m\n", elapsed, philo->index);
+	usleep(philo->philo_info->time_to_eat / 1000);
 }
 
 void	is_sleeping(t_philo *philo, struct timeval *start)
@@ -55,7 +56,7 @@ void	is_sleeping(t_philo *philo, struct timeval *start)
 
 	elapsed = (seconds * 1000) + (useconds / 1000);
 	printf("\033[1;34m%ld %i is sleeping\033[0m\n", elapsed, philo->index);
-
+	usleep(philo->philo_info->time_to_die / 1000);
 }
 
 void	is_thinking(t_philo *philo, struct timeval *start)
@@ -91,14 +92,12 @@ void	*routine(void *structure)
 			taken_fork(philo, &start);
 			eating(philo, &start);
 			philo->right_fork_locked = 1;
-			usleep(philo->philo_info->time_to_eat);
 			pthread_mutex_unlock(&philo->my_fork);
 			philo->my_fork_locked = 0;
 			pthread_mutex_unlock(&philo->right_fork);
 			philo->right_fork_locked = 0;
 		}
 		is_sleeping(philo, &start);
-		usleep(philo->philo_info->time_to_sleep);
 		is_thinking(philo, &start);
 	}
 	return (NULL);

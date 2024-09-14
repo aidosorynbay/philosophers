@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:16:56 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/09/14 15:59:14 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:31:08 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	taken_fork(t_philo *philo, struct timeval *start)
 	useconds = end.tv_usec - start->tv_usec;
 
 	elapsed = (seconds * 1000) + (useconds / 1000);
-	printf("%ld %i has taken a fork\n", elapsed, philo->index);
+	printf("\033[1;33m%ld %i has taken a fork\033[0m\n", elapsed, philo->index);
 }
 
 void	eating(t_philo *philo, struct timeval *start)
@@ -39,7 +39,7 @@ void	eating(t_philo *philo, struct timeval *start)
 	useconds = end.tv_usec - start->tv_usec;
 
 	elapsed = (seconds * 1000) + (useconds / 1000);
-	printf("%ld %i is eating\n", elapsed, philo->index);
+	printf("\033[1;32m%ld %i is eating\033[0m\n", elapsed, philo->index);
 }
 
 void	is_sleeping(t_philo *philo, struct timeval *start)
@@ -54,7 +54,8 @@ void	is_sleeping(t_philo *philo, struct timeval *start)
 	useconds = end.tv_usec - start->tv_usec;
 
 	elapsed = (seconds * 1000) + (useconds / 1000);
-	printf("%ld %i is sleeping\n", elapsed, philo->index);
+	printf("\033[1;34m%ld %i is sleeping\033[0m\n", elapsed, philo->index);
+
 }
 
 void	is_thinking(t_philo *philo, struct timeval *start)
@@ -69,7 +70,7 @@ void	is_thinking(t_philo *philo, struct timeval *start)
 	useconds = end.tv_usec - start->tv_usec;
 
 	elapsed = (seconds * 1000) + (useconds / 1000);
-	printf("%ld %i is thinking\n", elapsed, philo->index);
+	printf("\033[1;35m%ld %i is thinking\033[0m\n", elapsed, philo->index);
 }	
 
 void	*routine(void *structure)

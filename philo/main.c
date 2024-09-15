@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:13:45 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/09/13 19:05:22 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/09/15 16:24:35 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ int	main(int ac, char **av)
 		return (1);
 	init_info(info, ac, av);
 	init_philo(philo, info);
-
-
 	join_philo(philo, info);
 	// free_mem();
 }

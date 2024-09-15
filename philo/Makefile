@@ -1,4 +1,4 @@
-SRCS	=	main.c utils.c init.c free.c logic.c
+SRCS	=	main.c utils.c init.c free.c logic.c logic_utils.c
 
 OBJS	=	${SRCS:.c=.o}
 

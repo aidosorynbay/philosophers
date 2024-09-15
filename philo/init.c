@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 17:44:08 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/09/14 20:50:46 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/09/15 16:24:15 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static void	link_philos(t_philo *philo[], t_info *info)
 			philo[i]->next = philo[0];
 		i++;
 	}
-	
 }
 
 static void	link_forks(t_philo *philo[], t_info *info)
@@ -51,7 +50,6 @@ static void	link_forks(t_philo *philo[], t_info *info)
 			philo[i]->next->my_fork = philo[0]->my_fork;
 		i++;
 	}
-	
 }
 
 static void	create_thread(t_philo *philo[], t_info *info)
@@ -64,7 +62,6 @@ static void	create_thread(t_philo *philo[], t_info *info)
 		if (pthread_create(&philo[i]->thread, NULL, routine, (void *)philo[i]))
 			(perror("Failed creating thread."), exit(1));
 		i++;
-		// usleep(100);
 	}
 }
 
@@ -94,4 +91,3 @@ void	init_philo(t_philo *philo[], t_info *info)
 	link_forks(philo, info);
 	create_thread(philo, info);
 }
-

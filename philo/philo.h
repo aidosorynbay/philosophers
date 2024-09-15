@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:53:14 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/09/14 20:50:34 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/09/15 16:14:39 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,10 @@ void	init_info(t_info *info, int ac, char **av);
 void	init_philo(t_philo *philo[], t_info *info);
 void	join_philo(t_philo *philo[], t_info *info);
 void	*routine(void *structure);
+
+void	taken_fork(t_philo *philo, struct timeval *start);
+void	eating(t_philo *philo, struct timeval *start);
+void	is_sleeping(t_philo *philo, struct timeval *start);
+void	is_thinking(t_philo *philo, struct timeval *start);
 
 #endif

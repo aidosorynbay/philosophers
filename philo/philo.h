@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:53:14 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/09/15 16:14:39 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:40:50 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,10 @@ typedef struct s_philo
 	int				is_philo_dead;
 	t_info			*philo_info;
 	pthread_mutex_t	my_fork;
-	// pthread_mutex_t	right_fork;
 	int				my_fork_locked;
 	int				right_fork_locked;
 	int				done_eating;
 	struct s_philo	*next;
-	pthread_mutex_t	deadlock;
-	pthread_mutex_t	meallock;
-	pthread_mutex_t	writelock;
 }	t_philo;
 
 int		check_args(int ac, char **av);
@@ -60,5 +56,6 @@ void	taken_fork(t_philo *philo, struct timeval *start);
 void	eating(t_philo *philo, struct timeval *start);
 void	is_sleeping(t_philo *philo, struct timeval *start);
 void	is_thinking(t_philo *philo, struct timeval *start);
+void	is_dead(t_philo *philo, struct timeval *start);
 
 #endif

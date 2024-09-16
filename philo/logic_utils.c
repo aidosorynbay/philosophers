@@ -69,3 +69,17 @@ void	is_thinking(t_philo *philo, struct timeval *start)
 	elapsed = (seconds * 1000) + (useconds / 1000);
 	printf("\033[1;35m%ld %i is thinking\033[0m\n", elapsed, philo->index);
 }
+
+void	is_dead(t_philo *philo, struct timeval *start)
+{
+	struct timeval	end;
+	long			seconds;
+	long			useconds;
+	long			elapsed;
+
+	gettimeofday(&end, NULL);
+	seconds = end.tv_sec - start->tv_sec;
+	useconds = end.tv_usec - start->tv_usec;
+	elapsed = (seconds * 1000) + (useconds / 1000);
+	printf("\033[1;31m%ld %i died\033[0m\n", elapsed, philo->index);
+}

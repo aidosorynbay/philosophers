@@ -37,6 +37,16 @@ void	eating(t_philo *philo, struct timeval *start)
 	seconds = end.tv_sec - start->tv_sec;
 	useconds = end.tv_usec - start->tv_usec;
 	elapsed = (seconds * 1000) + (useconds / 1000);
+	if (elapsed >= philo->philo_info->time_to_die && philo->eat_count == 0)
+	{
+		is_dead(philo, start);
+		exit(EXIT_FAILURE);
+	}
+	else if (philo->eat_count && late_eat(philo, &end))
+	{
+		is_dead(philo, start);
+		exit(EXIT_FAILURE);
+	}
 	printf("\033[1;32m%ld %i is eating\033[0m\n", elapsed, philo->index);
 	usleep(philo->philo_info->time_to_eat * 1000);
 }

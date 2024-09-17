@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:53:14 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/09/16 18:40:50 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:01:57 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,13 @@ typedef struct s_philo
 	int				my_fork_locked;
 	int				right_fork_locked;
 	int				done_eating;
+	int				eat_count;
+	struct timeval	just_ate;
 	struct s_philo	*next;
 }	t_philo;
 
 int		check_args(int ac, char **av);
+int		late_eat(t_philo *philo, struct timeval *end);
 int		ft_atoi(const char *str);
 void	init_info(t_info *info, int ac, char **av);
 void	init_philo(t_philo *philo[], t_info *info);

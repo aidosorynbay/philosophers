@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:12:45 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/09/15 16:27:23 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:00:39 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,21 @@ int	check_args(int ac, char **av)
 			return (0);
 	}
 	return (1);
+}
+
+int	late_eat(t_philo *philo, struct timeval *end)
+{
+	long			seconds;
+	long			useconds;
+	long			elapsed;
+
+	seconds = end->tv_sec - philo->just_ate.tv_sec;
+	useconds = end->tv_usec - philo->just_ate.tv_usec;
+	elapsed = (seconds * 1000) + (useconds / 1000);
+	if (elapsed >= philo->philo_info->time_to_die)
+	{
+		return (1);
+	}
+	else
+		return (0);
 }

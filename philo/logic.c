@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:16:56 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/09/17 17:01:39 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:37:19 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	*routine(void *structure)
 
 	philo = (t_philo *)structure;
 	gettimeofday(&start, NULL);
+	if (philo->philo_info->num_philo == 1)
+		(is_dead(philo, &start), exit(EXIT_FAILURE));
 	while (philo->is_philo_dead == 0)
 	{
 		if (philo->index % 2 != 0)

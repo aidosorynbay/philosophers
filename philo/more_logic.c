@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:51:00 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/07 15:56:53 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:37:18 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	c_sleep(int time_to)
 		el = ((changing.tv_sec - now.tv_sec) * 1000)
 			+ ((changing.tv_usec - now.tv_usec) / 1000);
 		if (el < time_to)
-			usleep(100);
+			usleep(200);
 		else
 			break ;
 	}

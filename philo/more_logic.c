@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:51:00 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/07 14:23:47 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:56:53 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,13 @@ void	take_forks(t_philo *philo, struct timeval *start)
 	pthread_mutex_lock(&philo->next->my_fork);
 	philo->next->my_fork_locked = 1;
 	taken_fork(philo, start);
+}
+
+long	get_elapsed_time(struct timeval *start)
+{
+	struct timeval	now;
+
+	gettimeofday(&now, NULL);
+	return (((now.tv_sec - start->tv_sec) * 1000)
+		+ ((now.tv_usec - start->tv_usec) / 1000));
 }

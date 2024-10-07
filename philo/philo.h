@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:53:14 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/07 14:23:57 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:55:18 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@
 
 typedef struct s_info
 {
-	int	num_philo;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	num_of_eats;
+	int				num_philo;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				num_of_eats;
+	struct timeval	start_time;
 }	t_info;
 
 typedef struct s_philo
@@ -63,5 +64,6 @@ void	is_dead(t_philo *philo, struct timeval *start);
 
 void	c_sleep(int time_to);
 void	take_forks(t_philo *philo, struct timeval *start);
+long	get_elapsed_time(struct timeval *start);
 
 #endif

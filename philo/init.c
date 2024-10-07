@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 17:44:08 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/09/16 20:05:21 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:22:12 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,7 @@ void	init_philo(t_philo *philo[], t_info *info)
 	}
 	link_philos(philo, info);
 	link_forks(philo, info);
+	gettimeofday(&info->start_time, NULL);
 	create_thread(philo, info);
+	join_philo(philo, info);
 }

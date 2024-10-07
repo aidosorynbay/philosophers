@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:53:14 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/09/17 17:01:57 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:23:57 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,8 @@ void	eating(t_philo *philo, struct timeval *start);
 void	is_sleeping(t_philo *philo, struct timeval *start);
 void	is_thinking(t_philo *philo, struct timeval *start);
 void	is_dead(t_philo *philo, struct timeval *start);
+
+void	c_sleep(int time_to);
+void	take_forks(t_philo *philo, struct timeval *start);
 
 #endif

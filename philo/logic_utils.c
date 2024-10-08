@@ -24,18 +24,25 @@ void	eating(t_philo *philo, struct timeval *start)
 {
 	struct timeval	current_time;
 	long			elapsed;
+	long			elapsed1;
 
 	gettimeofday(&current_time, NULL);
 	elapsed = get_elapsed_time(start);
-	if (elapsed >= philo->philo_info->time_to_die && philo->eat_count == 0)
+	if (!philo->eat_count)
+		{
+			elapsed1 = get_elapsed_time(start);
+			if (elapsed1 >= philo->philo_info->time_to_die)
+			{
+				is_dead(philo, start);
+			}
+		}
+	else
 	{
-		is_dead(philo, start);
-		exit(EXIT_FAILURE);
-	}
-	else if (philo->eat_count && late_eat(philo, &current_time))
-	{
-		is_dead(philo, start);
-		exit(EXIT_FAILURE);
+		elapsed1 = get_elapsed_time(&philo->just_ate);
+		if (elapsed1 >= philo->philo_info->time_to_die)
+		{
+			is_dead(philo, start);
+		}
 	}
 	printf("\033[1;32m%ld %i is eating\033[0m\n", elapsed, philo->index);
 	c_sleep(philo->philo_info->time_to_eat);
@@ -64,4 +71,5 @@ void	is_dead(t_philo *philo, struct timeval *start)
 
 	elapsed = get_elapsed_time(start);
 	printf("\033[1;31m%ld %i died\033[0m\n", elapsed, philo->index);
+	exit(EXIT_FAILURE);
 }

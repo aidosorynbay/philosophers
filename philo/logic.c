@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:16:56 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/08 15:15:22 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:24:04 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,30 @@ static void	eating_process(t_philo *philo, struct timeval *start)
 			philo->my_fork_locked = 1;
 			pthread_mutex_unlock(&philo->my_fork_locked_mutex);
 			taken_fork(philo, start);
+		}
+		if (!philo->eat_count)
+		{
+			long	elapsed;
+
+			elapsed = get_elapsed_time(start);
+			if (elapsed >= philo->philo_info->time_to_die)
+			{
+				pthread_mutex_lock(&philo->is_dead_mutex);
+				philo->is_philo_dead = 1;
+				pthread_mutex_unlock(&philo->is_dead_mutex);
+			}
+		}
+		else
+		{
+			long	elapsed;
+
+			elapsed = get_elapsed_time(&philo->just_ate);
+			if (elapsed >= philo->philo_info->time_to_die)
+			{
+				pthread_mutex_lock(&philo->is_dead_mutex);
+				philo->is_philo_dead = 1;
+				pthread_mutex_unlock(&philo->is_dead_mutex);
+			}
 		}
 		eating(philo, start);
 		gettimeofday(&philo->just_ate, NULL);
@@ -77,8 +101,10 @@ void	*routine(void *structure)
 	philo = (t_philo *)structure;
 	if (philo->philo_info->num_philo == 1)
 		(is_dead(philo, &philo->philo_info->start_time), exit(EXIT_FAILURE));
+	pthread_mutex_lock(&philo->is_dead_mutex);
 	while (philo->is_philo_dead == 0)
 	{
+		pthread_mutex_unlock(&philo->is_dead_mutex);
 		if (philo->index % 2 != 0)
 			ft_logic(philo, &philo->philo_info->start_time);
 		else
@@ -88,13 +114,13 @@ void	*routine(void *structure)
 		}
 		if (philo->eat_count == philo->philo_info->num_of_eats)
 			break ;
+		pthread_mutex_lock(&philo->is_dead_mutex);
 		if (philo->is_philo_dead)
 		{
 			is_dead(philo, &philo->philo_info->start_time);
+			pthread_mutex_unlock(&philo->is_dead_mutex);
 			break ;
 		}
 	}
 	return (NULL);
 }
-
-// implement is_philo_dead

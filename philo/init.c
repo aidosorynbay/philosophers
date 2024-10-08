@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 17:44:08 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/08 15:03:21 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:12:27 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	init_philo(t_philo *philo[], t_info *info)
 		philo[i]->index = i;
 		philo[i]->philo_info = info;
 		philo[i]->is_philo_dead = 0;
+		pthread_mutex_init(&philo[i]->is_dead_mutex, NULL);
 		philo[i]->my_fork_locked = 0;
 		pthread_mutex_init(&philo[i]->my_fork_locked_mutex, NULL);
 		philo[i]->done_eating = 0;

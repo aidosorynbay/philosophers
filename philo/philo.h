@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:53:14 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/08 15:01:41 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:27:21 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_philo
 	pthread_t		thread;
 	int				index;
 	int				is_philo_dead;
+	pthread_mutex_t	is_dead_mutex;
 	t_info			*philo_info;
 	pthread_mutex_t	my_fork;
 	int				my_fork_locked;

@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 17:44:08 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/07 15:22:12 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:45:09 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,15 @@ static void	link_forks(t_philo *philo[], t_info *info)
 	while (i < info->num_philo)
 	{
 		if (i < info->num_philo - 1)
+		{
 			philo[i]->next->my_fork = philo[i + 1]->my_fork;
+			philo[i]->next->my_fork_locked = philo[i + 1]->my_fork_locked;
+		}
 		else
+		{
 			philo[i]->next->my_fork = philo[0]->my_fork;
+			philo[i]->next->my_fork_locked = philo[0]->my_fork_locked;
+		}
 		i++;
 	}
 }
@@ -79,8 +85,9 @@ void	init_philo(t_philo *philo[], t_info *info)
 		philo[i]->philo_info = info;
 		philo[i]->is_philo_dead = 0;
 		philo[i]->my_fork_locked = 0;
-		philo[i]->right_fork_locked = 0;
+		pthread_mutex_init(&philo[i]->my_fork_locked_mutex, NULL);
 		philo[i]->done_eating = 0;
+		pthread_mutex_init(&philo[i]->done_eating_mutex, NULL);
 		philo[i]->eat_count = 0;
 		pthread_mutex_init(&philo[i]->my_fork, NULL);
 		i++;

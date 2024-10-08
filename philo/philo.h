@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:53:14 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/07 15:55:18 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:44:16 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ typedef struct s_philo
 	t_info			*philo_info;
 	pthread_mutex_t	my_fork;
 	int				my_fork_locked;
-	int				right_fork_locked;
+	pthread_mutex_t	my_fork_locked_mutex;
 	int				done_eating;
+	pthread_mutex_t	done_eating_mutex;
 	int				eat_count;
 	struct timeval	just_ate;
 	struct s_philo	*next;

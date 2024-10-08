@@ -4,7 +4,7 @@ OBJS	=	${SRCS:.c=.o}
 
 CC		=	cc
 
-CFLAGS	=	-Wall -Werror -Wextra -o3
+CFLAGS	=	-Wall -Werror -Wextra -O3 -g3
 
 NAME	=	philo
 

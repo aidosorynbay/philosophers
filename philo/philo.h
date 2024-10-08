@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:53:14 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/08 14:44:16 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:01:41 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_philo
 	int				done_eating;
 	pthread_mutex_t	done_eating_mutex;
 	int				eat_count;
+	pthread_mutex_t	eat_count_mutex;
 	struct timeval	just_ate;
 	struct s_philo	*next;
 }	t_philo;

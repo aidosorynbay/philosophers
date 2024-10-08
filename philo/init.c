@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 17:44:08 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/08 14:45:09 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:03:21 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	init_philo(t_philo *philo[], t_info *info)
 		philo[i]->done_eating = 0;
 		pthread_mutex_init(&philo[i]->done_eating_mutex, NULL);
 		philo[i]->eat_count = 0;
+		pthread_mutex_init(&philo[i]->eat_count_mutex, NULL);
 		pthread_mutex_init(&philo[i]->my_fork, NULL);
 		i++;
 	}

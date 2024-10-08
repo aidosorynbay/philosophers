@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:16:56 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/08 14:58:49 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:15:22 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ static void	eating_process(t_philo *philo, struct timeval *start)
 		}
 		eating(philo, start);
 		gettimeofday(&philo->just_ate, NULL);
+		pthread_mutex_lock(&philo->eat_count_mutex);
 		philo->eat_count++;
+		pthread_mutex_unlock(&philo->eat_count_mutex);
 		pthread_mutex_unlock(&philo->my_fork);
 		pthread_mutex_lock(&philo->my_fork_locked_mutex);
 		philo->my_fork_locked = 0;
@@ -94,3 +96,5 @@ void	*routine(void *structure)
 	}
 	return (NULL);
 }
+
+// implement is_philo_dead

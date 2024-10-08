@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:16:56 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/08 14:52:18 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:58:49 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 static void	eating_process(t_philo *philo, struct timeval *start)
 {
+	pthread_mutex_lock(&philo->done_eating_mutex);
 	if (philo->done_eating == 0)
 	{
+		pthread_mutex_unlock(&philo->done_eating_mutex);
 		if (philo->index < philo->next->index)
 			take_forks(philo, start);
 		else
@@ -42,20 +44,26 @@ static void	eating_process(t_philo *philo, struct timeval *start)
 		pthread_mutex_lock(&philo->next->my_fork_locked_mutex);
 		philo->next->my_fork_locked = 0;
 		pthread_mutex_unlock(&philo->next->my_fork_locked_mutex);
-		// pthread_mutex_lock(&philo->done_eating_mutex);
+		pthread_mutex_lock(&philo->done_eating_mutex);
 		philo->done_eating = 1;
-		// pthread_mutex_unlock(&philo->done_eating_mutex);
 	}
+	pthread_mutex_unlock(&philo->done_eating_mutex);
 }
 
 static void	ft_logic(t_philo *philo, struct timeval *start)
 {
 	eating_process(philo, start);
+	pthread_mutex_lock(&philo->done_eating_mutex);
 	if (philo->done_eating == 1)
+	{
+		pthread_mutex_unlock(&philo->done_eating_mutex);
 		is_sleeping(philo, start);
-	// pthread_mutex_lock(&philo->done_eating_mutex);
+	}
+	else
+		pthread_mutex_unlock(&philo->done_eating_mutex);
+	pthread_mutex_lock(&philo->done_eating_mutex);
 	philo->done_eating = 0;
-	// pthread_mutex_unlock(&philo->done_eating_mutex);
+	pthread_mutex_unlock(&philo->done_eating_mutex);
 	if (philo->my_fork_locked == 1 || philo->next->my_fork_locked == 1)
 		is_thinking(philo, start);
 }

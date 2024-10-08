@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:16:56 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/08 16:24:04 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:43:37 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	eating_process(t_philo *philo, struct timeval *start)
 {
+	long	elapsed;
 	pthread_mutex_lock(&philo->done_eating_mutex);
 	if (philo->done_eating == 0)
 	{
@@ -35,8 +36,6 @@ static void	eating_process(t_philo *philo, struct timeval *start)
 		}
 		if (!philo->eat_count)
 		{
-			long	elapsed;
-
 			elapsed = get_elapsed_time(start);
 			if (elapsed >= philo->philo_info->time_to_die)
 			{
@@ -47,8 +46,6 @@ static void	eating_process(t_philo *philo, struct timeval *start)
 		}
 		else
 		{
-			long	elapsed;
-
 			elapsed = get_elapsed_time(&philo->just_ate);
 			if (elapsed >= philo->philo_info->time_to_die)
 			{

@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:16:56 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/08 17:01:52 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/09 18:28:50 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,8 @@ void	*routine(void *structure)
 	philo = (t_philo *)structure;
 	if (philo->philo_info->num_philo == 1)
 		(is_dead(philo, &philo->philo_info->start_time), exit(EXIT_FAILURE));
-	pthread_mutex_lock(&philo->is_dead_mutex);
 	while (1)
 	{
-		pthread_mutex_unlock(&philo->is_dead_mutex);
 		if (philo->index % 2 != 0)
 			ft_logic(philo, &philo->philo_info->start_time);
 		else

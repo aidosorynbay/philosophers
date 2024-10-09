@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 17:44:08 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/08 17:01:56 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/09 19:14:38 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_info(t_info *info, int ac, char **av)
 	info->time_to_die = ft_atoi(av[2]);
 	info->time_to_eat = ft_atoi(av[3]);
 	info->time_to_sleep = ft_atoi(av[4]);
+	pthread_mutex_init(&info->printf_mutex, NULL);
 }
 
 static void	link_philos(t_philo *philo[], t_info *info)

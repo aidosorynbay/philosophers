@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:53:14 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/08 17:02:00 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/09 19:14:17 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_info
 	int				time_to_sleep;
 	int				num_of_eats;
 	struct timeval	start_time;
+	pthread_mutex_t	printf_mutex;
 }	t_info;
 
 typedef struct s_philo

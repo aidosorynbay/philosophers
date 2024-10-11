@@ -6,7 +6,6 @@ CC    =  cc
 
 CFLAGS  =  -Wall -Werror -Wextra -O3 -g3 -pthread
 
-SANITIZE_FLAGS = -fsanitize=thread,undefined -g3 -fno-omit-frame-pointer -flto -O3
 NAME  =  philo
 
 all    :  ${NAME}

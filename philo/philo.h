@@ -17,6 +17,8 @@
 # endif
 
 # define USAGE "./philo num_philo die_time eat_time sleep_time [times_to_eat]\n"
+# define AVAILABLE 0
+# define LOCKED 1
 
 typedef struct t_sinput
 {
@@ -29,7 +31,9 @@ typedef struct t_sinput
 	pthread_mutex_t	forks[MAX_PHILO];
 	int				fork_state[MAX_PHILO];
 	pthread_mutex_t	is_dead_mutex;
+	pthread_mutex_t	printf_mutex;
 	int				is_dead;
+
 	pthread_t		monitor;
 } t_input;
 
@@ -37,15 +41,21 @@ typedef struct t_sphilo
 {
 	int				index;
 	t_input			*input;
+
 	int				time_since_last_meal;
 	int				time_since_started;
+
 	int				meals_eaten;
 	pthread_mutex_t	meals_eaten_mutex;
+	int				initial_wait;
 	pthread_mutex_t	*my_fork;
 	pthread_mutex_t	*next_fork;
 } t_philo;
 
 int	parsing_check(int ac, char **av);
 int	ft_atoi(const char *str);
+
+void	*monitor_r(t_philo *philo);
+void	*routine(t_philo *philo);
 
 #endif

@@ -1,4 +1,4 @@
-SRCS  =  main.c utils.c parsing.c init.c monitor.c routine.c
+SRCS  =  main.c utils.c parsing.c init.c monitor.c routine.c clear.c routine_utils.c
 
 OBJS  =  ${SRCS:.c=.o}
 

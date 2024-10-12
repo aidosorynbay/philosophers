@@ -27,6 +27,7 @@ typedef struct t_sinput
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				number_of_meals;
+	int				start_time;
 	pthread_t		philo[MAX_PHILO];
 	pthread_mutex_t	forks[MAX_PHILO];
 	int				fork_state[MAX_PHILO];
@@ -41,10 +42,8 @@ typedef struct t_sphilo
 {
 	int				index;
 	t_input			*input;
-
 	int				time_since_last_meal;
-	int				time_since_started;
-
+	pthread_mutex_t	t_since_last_meal_mutex;
 	int				meals_eaten;
 	pthread_mutex_t	meals_eaten_mutex;
 	int				initial_wait;
@@ -52,10 +51,24 @@ typedef struct t_sphilo
 	pthread_mutex_t	*next_fork;
 } t_philo;
 
-int	parsing_check(int ac, char **av);
-int	ft_atoi(const char *str);
+int		parsing_check(int ac, char **av);
+int		ft_atoi(const char *str);
+void	safe_mutex_lock(pthread_mutex_t *mutex);
+void	safe_mutex_unlock(pthread_mutex_t *mutex);
+int		get_time_ms(int start_time);
 
-void	*monitor_r(t_philo *philo);
-void	*routine(t_philo *philo);
+void	init_structs(t_philo *philo, t_input *input, char **av, int ac);
+
+void	*monitor_r(void *arg);
+int		check_if_dead(t_philo *philo);
+
+void	*routine(void *arg);
+void	take_forks(t_philo *philo);
+void	meal_count_add(t_philo *philo);
+void	meal_time_r(t_philo *philo);
+void	release_forks(t_philo *philo);
+
+void	safe_join_thread(pthread_t thread, void **attr);
+void	clear_philo_input(t_philo *philo, t_input *input);
 
 #endif

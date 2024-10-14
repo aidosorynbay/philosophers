@@ -6,11 +6,17 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 16:27:55 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/12 20:48:40 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:54:19 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	one_philo()
+{
+	printf("\033[34m%d %d has taken a fork\033[0m\n", 0, 0);
+	// philo->input->is_dead = 1;
+}
 
 int	main(int ac, char **av)
 {

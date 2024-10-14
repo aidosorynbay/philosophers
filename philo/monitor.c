@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 20:56:49 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/12 21:02:24 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:29:28 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	*monitor_r(void *arg)
 			philo[i].input->is_dead = 1;
 			safe_mutex_unlock(&philo[i].input->is_dead_mutex);
 			safe_mutex_lock(&philo[i].input->printf_mutex);
-			printf("\033[31m%d %d died\033[0m", get_time_ms(philo[i].input->start_time), philo[i].index);
+			printf("\033[31m%d %d died\033[0m\n", get_time_ms(philo[i].input->start_time), philo[i].index);
 			safe_mutex_unlock(&philo[i].input->printf_mutex);
 			break ;
 		}

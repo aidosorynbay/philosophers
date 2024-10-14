@@ -51,6 +51,8 @@ typedef struct t_sphilo
 	pthread_mutex_t	*next_fork;
 } t_philo;
 
+void	one_philo();
+
 int		parsing_check(int ac, char **av);
 int		ft_atoi(const char *str);
 void	safe_mutex_lock(pthread_mutex_t *mutex);

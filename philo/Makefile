@@ -24,4 +24,7 @@ fclean  :  clean
 
 re    :  fclean ${NAME}
 
+sanitize: CFLAGS += -fsanitize=undefined,thread -g3 -O3 
+sanitize: re
+
 .PHONY: all clean fclean re sanitize

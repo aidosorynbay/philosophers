@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 20:45:38 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/14 19:27:21 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:52:48 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static void	safe_mutex_destroy(pthread_mutex_t *mutex)
 	exit(1);
 }
 
-void	safe_join_thread(pthread_t thread, void **attr)
+void	safe_join_thread(pthread_t thread)
 {
-	if (pthread_join(thread, attr) == 0)
+	if (pthread_join(thread, NULL) == 0)
 		return ;
 	perror("join failed");
 	exit(1);
@@ -32,17 +32,22 @@ void	clear_philo_input(t_philo *philo, t_input *input)
 {
 	int	i;
 
-	i = 0;
-	while (i++ < input->number_of_philosophers)
-		safe_join_thread(input->philo[i], NULL);
-	i = 0;
-	while (i++ < input->number_of_philosophers)
+	i = -1;
+	while (++i < input->number_of_philosophers)
+	{
+		pthread_join(input->philo[i], NULL);
+		// safe_join_thread(input->philo[i]);
+	}
+	i = -1;
+	while (++i < input->number_of_philosophers)
 		safe_mutex_destroy(&input->forks[i]);
-	safe_mutex_destroy(&input->is_dead_mutex);
-	safe_mutex_destroy(&input->printf_mutex);
-	i = 0;
+	// safe_mutex_destroy(&input->is_dead_mutex);
+	pthread_mutex_destroy(&input->is_dead_mutex);
+	// safe_mutex_destroy(&input->printf_mutex);
+	pthread_mutex_destroy(&input->printf_mutex);
+	i = -1;
 	while (i++ < input->number_of_philosophers)
-		(safe_mutex_destroy(&philo[i].meals_eaten_mutex)
-			, safe_mutex_destroy(&philo[i].t_since_last_meal_mutex));
+		(pthread_mutex_destroy(&philo[i].meals_eaten_mutex)
+			, pthread_mutex_destroy(&philo[i].t_since_last_meal_mutex));
 	exit(EXIT_SUCCESS);
 }

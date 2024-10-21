@@ -34,7 +34,6 @@ typedef struct t_sinput
 	pthread_mutex_t	is_dead_mutex;
 	pthread_mutex_t	printf_mutex;
 	int				is_dead;
-
 	pthread_t		monitor;
 } t_input;
 
@@ -70,7 +69,7 @@ void	meal_count_add(t_philo *philo);
 void	meal_time_r(t_philo *philo);
 void	release_forks(t_philo *philo);
 
-void	safe_join_thread(pthread_t thread, void **attr);
+void	safe_join_thread(pthread_t thread);
 void	clear_philo_input(t_philo *philo, t_input *input);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 19:20:58 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/12 20:57:44 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/17 17:42:24 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ void	init_structs(t_philo *philo, t_input *input, char **av, int ac)
 
 	i = -1;
 	init_input(input, av, ac);
-	init_philo(philo, input, i);
-	input->start_time = get_time_ms(0);
 	while (++i < input->number_of_philosophers)
 		init_mutex(&input->forks[i]);
+	i = -1;
+	init_philo(philo, input, i);
+	input->start_time = get_time_ms(0);
 	create_thread(&input->monitor, NULL, &monitor_r, (void *)philo);
 	i = -1;
 	while (++i < input->number_of_philosophers)

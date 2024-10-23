@@ -6,32 +6,19 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 22:21:57 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/22 18:53:23 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:22:53 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	c_sleep(int time_to)
+void	c_sleep(t_philo *philo, int time_to)
 {
-	struct timeval	now;
-	struct timeval	changing;
-	long			el;
+	int	start_time;
 
-	gettimeofday(&now, NULL);
-	if (time_to == 0)
-		return ;
-	el = 0;
-	while (1)
-	{
-		gettimeofday(&changing, NULL);
-		el = ((changing.tv_sec - now.tv_sec) * 1000)
-			+ ((changing.tv_usec - now.tv_usec) / 1000);
-		if (el < time_to)
-			usleep(100);
-		else
-			break ;
-	}
+	start_time = get_time_ms(philo->input->start_time);
+	while (!check_if_dead(philo) && get_time_ms(philo->input->start_time) - start_time < time_to)
+		usleep(100);
 }
 
 static void	eating(t_philo *philo)
@@ -40,7 +27,7 @@ static void	eating(t_philo *philo)
 	if (!check_if_dead(philo))
 		printf("\033[32m%d %d is eating\033[0m\n", get_time_ms(philo->input->start_time), philo->index);	
 	safe_mutex_unlock(&philo->input->printf_mutex);
-	c_sleep(philo->input->time_to_eat);
+	c_sleep(philo, philo->input->time_to_eat);
 }
 
 static void sleeping(t_philo *philo)
@@ -49,7 +36,7 @@ static void sleeping(t_philo *philo)
 	if (!check_if_dead(philo))
 		printf("\033[35m%d %d is sleeping\033[0m\n", get_time_ms(philo->input->start_time), philo->index);	
 	safe_mutex_unlock(&philo->input->printf_mutex);
-	c_sleep(philo->input->time_to_sleep);
+	c_sleep(philo, philo->input->time_to_sleep);
 }
 
 static void thinking(t_philo *philo)
@@ -65,7 +52,7 @@ void	*routine(void *arg)
 	t_philo *philo = (t_philo *)arg;
 	if (philo->input->number_of_philosophers == 1)
 		return (one_philo(), NULL);
-	c_sleep(philo->initial_wait);
+	c_sleep(philo, philo->initial_wait);
 	while (!check_if_dead(philo))
 	{
 		take_forks(philo);

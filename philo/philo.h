@@ -64,7 +64,7 @@ void	*monitor_r(void *arg);
 int		check_if_dead(t_philo *philo);
 
 void	*routine(void *arg);
-void	c_sleep(int time_to);
+void	c_sleep(t_philo *philo, int time_to);
 void	take_forks(t_philo *philo);
 void	meal_count_add(t_philo *philo);
 void	meal_time_r(t_philo *philo);

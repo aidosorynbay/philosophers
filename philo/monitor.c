@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 20:56:49 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/14 19:29:28 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/25 14:44:49 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ void	*monitor_r(void *arg)
 	i = 0;
 	while (!check_if_dead(philo))
 	{
+		safe_mutex_lock(&philo->meals_eaten_mutex);
+		if (philo->meals_eaten >= philo->input->number_of_meals)
+			return (safe_mutex_unlock(&philo->meals_eaten_mutex), NULL);
+		safe_mutex_unlock(&philo->meals_eaten_mutex);
 		if (meal_time_m(&philo[i]) >= philo[i].input->time_to_die)
 		{
 			safe_mutex_lock(&philo[i].input->is_dead_mutex);

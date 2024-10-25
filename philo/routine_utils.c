@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 20:18:15 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/25 14:43:04 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/25 16:44:32 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,5 @@ void	release_forks(t_philo *philo)
 	safe_mutex_unlock(philo->my_fork);
 	safe_mutex_unlock(philo->next_fork);
 	if (philo->index % 2 == 0 && philo->input->number_of_philosophers % 2)
-		usleep(1000);
+		usleep(300);
 }

@@ -50,7 +50,7 @@ typedef struct t_sphilo
 	pthread_mutex_t	*next_fork;
 } t_philo;
 
-void	one_philo();
+void	one_philo(t_philo *philo);
 
 int		parsing_check(int ac, char **av);
 int		ft_atoi(const char *str);

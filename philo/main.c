@@ -6,15 +6,17 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 16:27:55 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/22 08:54:49 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:25:02 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	one_philo()
+void	one_philo(t_philo *philo)
 {
-	printf("\033[34m%d %d has taken a fork\033[0m\n", 0, 0);
+	printf("\033[34m%d %d has taken a fork\033[0m\n", 0, 1);
+	usleep(philo->input->time_to_die * 1000);
+	printf("\033[31m%d %d died\033[0m\n", philo->input->time_to_die, 1);
 }
 
 int	main(int ac, char **av)

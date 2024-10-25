@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 19:20:58 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/17 17:42:24 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/25 16:42:52 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	init_philo(t_philo *philo, t_input *input, int i)
 		init_mutex(&philo[i].meals_eaten_mutex);
 		philo[i].time_since_last_meal = get_time_ms(0);
 		init_mutex(&philo[i].t_since_last_meal_mutex);
-		philo[i].initial_wait = (i % 2) * 100;
+		philo[i].initial_wait = (i % 2) * (input->time_to_eat / 2);
 	}
 }
 

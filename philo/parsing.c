@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:36:25 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/11 18:33:59 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/28 20:42:16 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static int	ft_isdigit(int c)
 static int	value_checker(char *str)
 {
 	int	num;
+
 	num = ft_atoi(str);
 	if (num == 0 || num < 0)
 		return (0);
@@ -63,7 +64,7 @@ int	parsing_check(int ac, char **av)
 	if (ft_atoi(av[1]) > 200)
 		return (0);
 	if (!check_minimum_time(av))
-		return (0);	
+		return (0);
 	while (++i < ac)
 	{
 		if (!check_if_only_digits(av[i]))

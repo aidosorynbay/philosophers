@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 20:18:15 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/28 19:16:56 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/28 20:44:03 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static void	print_taken_fork(t_philo *philo)
 {
 	safe_mutex_lock(&philo->input->printf_mutex);
 	if (!check_if_dead(philo))
-		printf("\033[34m%d %d has taken a fork\033[0m\n", get_time_ms(philo->input->start_time), philo->index + 1);
+		printf("\033[34m%d %d has taken a fork\033[0m\n",
+			get_time_ms(philo->input->start_time), philo->index + 1);
 	safe_mutex_unlock(&philo->input->printf_mutex);
 }
 
@@ -29,15 +30,23 @@ void	take_forks(t_philo *philo)
 			philo->input->fork_state[philo->index] = 1;
 		print_taken_fork(philo);
 		safe_mutex_lock(philo->next_fork);
-		if (!philo->input->fork_state[(philo->index + 1) % philo->input->number_of_philosophers])
-			philo->input->fork_state[(philo->index + 1) % philo->input->number_of_philosophers] = 1;
+		if (!philo->input->fork_state[(philo->index + 1)
+				% philo->input->number_of_philosophers])
+		{
+			philo->input->fork_state[(philo->index + 1)
+				% philo->input->number_of_philosophers] = 1;
+		}
 		print_taken_fork(philo);
 	}
 	else
 	{
 		safe_mutex_lock(philo->next_fork);
-		if (!philo->input->fork_state[(philo->index + 1) % philo->input->number_of_philosophers])
-			philo->input->fork_state[(philo->index + 1) % philo->input->number_of_philosophers] = 1;
+		if (!philo->input->fork_state[(philo->index + 1)
+				% philo->input->number_of_philosophers])
+		{
+			philo->input->fork_state[(philo->index + 1)
+				% philo->input->number_of_philosophers] = 1;
+		}
 		print_taken_fork(philo);
 		safe_mutex_lock(philo->my_fork);
 		if (!philo->input->fork_state[philo->index])
@@ -63,7 +72,8 @@ void	meal_time_r(t_philo *philo)
 void	release_forks(t_philo *philo)
 {
 	philo->input->fork_state[philo->index] = 0;
-	philo->input->fork_state[(philo->index + 1) % philo->input->number_of_philosophers] = 0;
+	philo->input->fork_state[(philo->index + 1)
+		% philo->input->number_of_philosophers] = 0;
 	safe_mutex_unlock(philo->my_fork);
 	safe_mutex_unlock(philo->next_fork);
 	if (philo->index % 2 == 0 && philo->input->number_of_philosophers % 2)

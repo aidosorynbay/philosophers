@@ -6,13 +6,14 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 19:20:58 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/28 19:58:37 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/28 20:38:55 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	create_thread(pthread_t *thread, const pthread_attr_t *attr, void *(*routine)(void *), void *arg)
+static void	create_thread(pthread_t *thread, const pthread_attr_t *attr,
+							void *(*routine)(void *), void *arg)
 {
 	if (pthread_create(thread, attr, routine, arg) == 0)
 		return ;
@@ -55,7 +56,8 @@ static void	init_philo(t_philo *philo, t_input *input, int i)
 		philo[i].input = input;
 		philo[i].meals_eaten = 0;
 		philo[i].my_fork = &input->forks[i];
-		philo[i].next_fork = &input->forks[(i + 1) % input->number_of_philosophers];
+		philo[i].next_fork = &input->forks[(i + 1)
+			% input->number_of_philosophers];
 		init_mutex(&philo[i].meals_eaten_mutex);
 		init_mutex(&philo[i].meal_time_check_mutex);
 		philo[i].time_since_last_meal = get_time_ms(0);

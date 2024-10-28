@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/28 20:47:11 by aorynbay          #+#    #+#             */
+/*   Updated: 2024/10/28 20:47:30 by aorynbay         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -37,7 +49,7 @@ typedef struct t_sinput
 	pthread_mutex_t	printf_mutex;
 	int				is_dead;
 	pthread_t		monitor;
-} t_input;
+}	t_input;
 
 typedef struct t_sphilo
 {
@@ -51,7 +63,7 @@ typedef struct t_sphilo
 	int				initial_wait;
 	pthread_mutex_t	*my_fork;
 	pthread_mutex_t	*next_fork;
-} t_philo;
+}	t_philo;
 
 void	one_philo(t_philo *philo);
 

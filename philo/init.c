@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 19:20:58 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/25 16:42:52 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:40:36 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static void	init_input(t_input *input, char **av, int ac)
 	input->time_to_sleep = ft_atoi(av[4]);
 	input->is_dead = 0;
 	input->start_time = 0;
+	input->all_meals = 0;
+	init_mutex(&input->all_meals_mutex);
 	init_mutex(&input->is_dead_mutex);
 	init_mutex(&input->printf_mutex);
 	memset(input->fork_state, AVAILABLE, sizeof(input->fork_state));

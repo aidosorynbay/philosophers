@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 20:56:49 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/25 17:29:15 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/28 19:27:10 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,18 @@ void	*monitor_r(void *arg)
 
 	t_philo *philo = (t_philo *)arg;
 	i = 0;
+	if (philo->input->number_of_philosophers == 1)
+		return (NULL);	
 	while (!check_if_dead(philo))
 	{
-		safe_mutex_lock(&philo->meals_eaten_mutex);
-		if (philo->meals_eaten >= philo->input->number_of_meals)
-			return (safe_mutex_unlock(&philo->meals_eaten_mutex), NULL);
-		safe_mutex_unlock(&philo->meals_eaten_mutex);
-		if (meal_time_m(&philo[i]) >= philo[i].input->time_to_die)
+		safe_mutex_lock(&philo->input->all_meals_mutex);
+		if (philo->input->all_meals >= philo->input->number_of_philosophers)
+		{
+			safe_mutex_unlock(&philo->input->all_meals_mutex);
+			return NULL;
+		}
+		safe_mutex_unlock(&philo->input->all_meals_mutex);
+		if (meal_time_m(&philo[i]) > philo[i].input->time_to_die && (philo[i].meals_eaten < philo[i].input->number_of_meals))
 		{
 			safe_mutex_lock(&philo[i].input->is_dead_mutex);
 			philo[i].input->is_dead = 1;

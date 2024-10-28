@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 20:18:15 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/25 16:44:32 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/28 19:16:56 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	print_taken_fork(t_philo *philo)
 {
 	safe_mutex_lock(&philo->input->printf_mutex);
 	if (!check_if_dead(philo))
-		printf("\033[34m%d %d has taken a fork\033[0m\n", get_time_ms(philo->input->start_time), philo->index);
+		printf("\033[34m%d %d has taken a fork\033[0m\n", get_time_ms(philo->input->start_time), philo->index + 1);
 	safe_mutex_unlock(&philo->input->printf_mutex);
 }
 

@@ -28,6 +28,8 @@ typedef struct t_sinput
 	int				time_to_sleep;
 	int				number_of_meals;
 	int				start_time;
+	int				all_meals;
+	pthread_mutex_t	all_meals_mutex;
 	pthread_t		philo[MAX_PHILO];
 	pthread_mutex_t	forks[MAX_PHILO];
 	int				fork_state[MAX_PHILO];

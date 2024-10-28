@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 16:27:55 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/25 17:25:02 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:07:51 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	main(int ac, char **av)
 	memset(philo, 0, sizeof(philo));
 	memset(&input.fork_state, 0, sizeof(input.fork_state));
 	init_structs(philo, &input, av, ac);
-	// safe_join_thread(input.monitor);
 	if (input.monitor)
         pthread_join(input.monitor, NULL);
 	clear_philo_input(philo, &input);

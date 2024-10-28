@@ -47,6 +47,7 @@ typedef struct t_sphilo
 	pthread_mutex_t	t_since_last_meal_mutex;
 	int				meals_eaten;
 	pthread_mutex_t	meals_eaten_mutex;
+	pthread_mutex_t	meal_time_check_mutex;
 	int				initial_wait;
 	pthread_mutex_t	*my_fork;
 	pthread_mutex_t	*next_fork;

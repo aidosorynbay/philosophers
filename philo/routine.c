@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 22:21:57 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/28 19:33:19 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/28 19:49:09 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ void	*routine(void *arg)
 	while (!check_if_dead(philo))
 	{
 		take_forks(philo);
-		eating(philo);
-		release_forks(philo);
 		meal_time_r(philo);
+		eating(philo);
 		meal_count_add(philo);
+		release_forks(philo);
 		safe_mutex_lock(&philo->meals_eaten_mutex);
 		if (philo->input->number_of_meals != 0 && philo->meals_eaten >= philo->input->number_of_meals)
 		{

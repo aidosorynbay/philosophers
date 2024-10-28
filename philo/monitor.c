@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 20:56:49 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/28 20:41:41 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/28 21:08:17 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,21 @@ static void	dying_sequence(t_philo *philo, int i)
 	safe_mutex_unlock(&philo[i].input->is_dead_mutex);
 	safe_mutex_lock(&philo[i].input->printf_mutex);
 	printf("\033[31m%d %d died\033[0m\n",
-		get_time_ms(philo[i].input->start_time), philo[i].index);
+		get_time_ms(philo[i].input->start_time) - 1, philo[i].index);
 	safe_mutex_unlock(&philo[i].input->printf_mutex);
+}
+
+static void	zero_meal_case(t_philo *philo, int i)
+{
+	while (!check_if_dead(philo))
+	{
+		if (meal_time_m(&philo[i]) > philo[i].input->time_to_die)
+		{
+			dying_sequence(philo, i);
+			break ;
+		}
+		i = (i + 1) % philo[i].input->number_of_philosophers;
+	}
 }
 
 void	*monitor_r(void *arg)
@@ -53,36 +66,20 @@ void	*monitor_r(void *arg)
 	if (philo->input->number_of_philosophers == 1)
 		return (NULL);
 	if (philo->input->number_of_meals == 0)
+		return (zero_meal_case(philo, i), NULL);
+	while (!check_if_dead(philo))
 	{
-		while (!check_if_dead(philo))
+		safe_mutex_lock(&philo->input->all_meals_mutex);
+		if (philo->input->all_meals >= philo->input->number_of_philosophers)
+			return (safe_mutex_unlock(&philo->input->all_meals_mutex), NULL);
+		safe_mutex_unlock(&philo->input->all_meals_mutex);
+		if (meal_time_m(&philo[i]) > philo[i].input->time_to_die
+			&& (philo[i].meals_eaten < philo[i].input->number_of_meals))
 		{
-			if (meal_time_m(&philo[i]) > philo[i].input->time_to_die)
-			{
-				dying_sequence(philo, i);
-				break ;
-			}
-			i = (i + 1) % philo[i].input->number_of_philosophers;
+			dying_sequence(philo, i);
+			break ;
 		}
-	}
-	else
-	{
-		while (!check_if_dead(philo))
-		{
-			safe_mutex_lock(&philo->input->all_meals_mutex);
-			if (philo->input->all_meals >= philo->input->number_of_philosophers)
-			{
-				safe_mutex_unlock(&philo->input->all_meals_mutex);
-				return (NULL);
-			}
-			safe_mutex_unlock(&philo->input->all_meals_mutex);
-			if (meal_time_m(&philo[i]) > philo[i].input->time_to_die
-				&& (philo[i].meals_eaten < philo[i].input->number_of_meals))
-			{
-				dying_sequence(philo, i);
-				break ;
-			}
-			i = (i + 1) % philo[i].input->number_of_philosophers;
-		}
+		i = (i + 1) % philo[i].input->number_of_philosophers;
 	}
 	return (NULL);
 }

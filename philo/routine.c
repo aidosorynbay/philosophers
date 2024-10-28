@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 22:21:57 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/28 20:46:47 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/28 21:06:45 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	c_sleep(t_philo *philo, int time_to)
 		usleep(100);
 }
 
-static void	eating(t_philo *philo)
+void	eating(t_philo *philo)
 {
 	safe_mutex_lock(&philo->input->printf_mutex);
 	if (!check_if_dead(philo))
@@ -32,7 +32,7 @@ static void	eating(t_philo *philo)
 	c_sleep(philo, philo->input->time_to_eat);
 }
 
-static void	sleeping(t_philo *philo)
+void	sleeping(t_philo *philo)
 {
 	safe_mutex_lock(&philo->input->printf_mutex);
 	if (!check_if_dead(philo))
@@ -42,7 +42,7 @@ static void	sleeping(t_philo *philo)
 	c_sleep(philo, philo->input->time_to_sleep);
 }
 
-static void	thinking(t_philo *philo)
+void	thinking(t_philo *philo)
 {
 	safe_mutex_lock(&philo->input->printf_mutex);
 	if (!check_if_dead(philo))
@@ -61,11 +61,7 @@ void	*routine(void *arg)
 	c_sleep(philo, philo->initial_wait);
 	while (!check_if_dead(philo))
 	{
-		take_forks(philo);
-		meal_time_r(philo);
-		eating(philo);
-		meal_count_add(philo);
-		release_forks(philo);
+		whole_process(philo);
 		safe_mutex_lock(&philo->meals_eaten_mutex);
 		if (philo->input->number_of_meals != 0
 			&& philo->meals_eaten >= philo->input->number_of_meals)

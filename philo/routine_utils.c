@@ -6,13 +6,13 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 20:18:15 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/28 20:44:03 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/28 21:04:17 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	print_taken_fork(t_philo *philo)
+void	print_taken_fork(t_philo *philo)
 {
 	safe_mutex_lock(&philo->input->printf_mutex);
 	if (!check_if_dead(philo))
@@ -25,17 +25,7 @@ void	take_forks(t_philo *philo)
 {
 	if (philo->index % 2 == 0)
 	{
-		safe_mutex_lock(philo->my_fork);
-		if (!philo->input->fork_state[philo->index])
-			philo->input->fork_state[philo->index] = 1;
-		print_taken_fork(philo);
-		safe_mutex_lock(philo->next_fork);
-		if (!philo->input->fork_state[(philo->index + 1)
-				% philo->input->number_of_philosophers])
-		{
-			philo->input->fork_state[(philo->index + 1)
-				% philo->input->number_of_philosophers] = 1;
-		}
+		even_philo(philo);
 		print_taken_fork(philo);
 	}
 	else

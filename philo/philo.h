@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:47:11 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/28 20:47:30 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/28 21:07:12 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,19 @@ int		check_if_dead(t_philo *philo);
 
 void	*routine(void *arg);
 void	c_sleep(t_philo *philo, int time_to);
+void	eating(t_philo *philo);
+void	sleeping(t_philo *philo);
+void	thinking(t_philo *philo);
 void	take_forks(t_philo *philo);
 void	meal_count_add(t_philo *philo);
+void	print_taken_fork(t_philo *philo);
 void	meal_time_r(t_philo *philo);
 void	release_forks(t_philo *philo);
 
 void	safe_join_thread(pthread_t thread);
 void	clear_philo_input(t_philo *philo, t_input *input);
+
+void	even_philo(t_philo *philo);
+void	whole_process(t_philo *philo);
 
 #endif

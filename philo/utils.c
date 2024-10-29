@@ -6,13 +6,13 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 17:47:17 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/28 20:46:59 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:37:14 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_atoi(const char *str)
+unsigned long long	ft_atoi(const char *str)
 {
 	unsigned long long	result;
 	int					sign;
@@ -55,7 +55,7 @@ void	safe_mutex_unlock(pthread_mutex_t *mutex)
 	exit(1);
 }
 
-int	get_time_ms(int start_time)
+unsigned long long	get_time_ms(unsigned long long start_time)
 {
 	struct timeval	now;
 

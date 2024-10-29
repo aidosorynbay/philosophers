@@ -6,15 +6,15 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 20:56:49 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/28 21:08:17 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:33:56 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_if_dead(t_philo *philo)
+unsigned long long	check_if_dead(t_philo *philo)
 {
-	int	condition;
+	unsigned long long	condition;
 
 	safe_mutex_lock(&philo->input->is_dead_mutex);
 	condition = philo->input->is_dead;
@@ -22,28 +22,28 @@ int	check_if_dead(t_philo *philo)
 	return (condition);
 }
 
-static int	meal_time_m(t_philo *philo)
+static unsigned long long	meal_time_m(t_philo *philo)
 {
-	int	meal_time;
+	unsigned long long	meal_time;
 
-	safe_mutex_lock(&philo->meal_time_check_mutex);
+	safe_mutex_lock(&philo->t_since_last_meal_mutex);
 	meal_time = get_time_ms(0) - philo->time_since_last_meal;
-	safe_mutex_unlock(&philo->meal_time_check_mutex);
+	safe_mutex_unlock(&philo->t_since_last_meal_mutex);
 	return (meal_time);
 }
 
-static void	dying_sequence(t_philo *philo, int i)
+static void	dying_sequence(t_philo *philo, unsigned long long i)
 {
 	safe_mutex_lock(&philo[i].input->is_dead_mutex);
 	philo[i].input->is_dead = 1;
 	safe_mutex_unlock(&philo[i].input->is_dead_mutex);
 	safe_mutex_lock(&philo[i].input->printf_mutex);
-	printf("\033[31m%d %d died\033[0m\n",
+	printf("\033[31m%llu %llu died\033[0m\n",
 		get_time_ms(philo[i].input->start_time) - 1, philo[i].index);
 	safe_mutex_unlock(&philo[i].input->printf_mutex);
 }
 
-static void	zero_meal_case(t_philo *philo, int i)
+static void	zero_meal_case(t_philo *philo, unsigned long long i)
 {
 	while (!check_if_dead(philo))
 	{
@@ -58,8 +58,8 @@ static void	zero_meal_case(t_philo *philo, int i)
 
 void	*monitor_r(void *arg)
 {
-	int		i;
-	t_philo	*philo;
+	unsigned long long	i;
+	t_philo				*philo;
 
 	i = 0;
 	philo = (t_philo *)arg;

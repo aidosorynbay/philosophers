@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 19:20:58 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/28 20:38:55 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:32:43 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	init_mutex(pthread_mutex_t *mutex)
 	exit(1);
 }
 
-static void	init_input(t_input *input, char **av, int ac)
+static void	init_input(t_input *input, char **av, unsigned long long ac)
 {
 	if (ac == 6)
 		input->number_of_meals = ft_atoi(av[5]);
@@ -48,9 +48,9 @@ static void	init_input(t_input *input, char **av, int ac)
 	memset(input->fork_state, AVAILABLE, sizeof(input->fork_state));
 }
 
-static void	init_philo(t_philo *philo, t_input *input, int i)
+static void	init_philo(t_philo *philo, t_input *input, unsigned long long i)
 {
-	while (++i < input->number_of_philosophers)
+	while (i < input->number_of_philosophers)
 	{
 		philo[i].index = i;
 		philo[i].input = input;
@@ -63,22 +63,25 @@ static void	init_philo(t_philo *philo, t_input *input, int i)
 		philo[i].time_since_last_meal = get_time_ms(0);
 		init_mutex(&philo[i].t_since_last_meal_mutex);
 		philo[i].initial_wait = (i % 2) * (input->time_to_eat / 2);
+		i++;
 	}
 }
 
-void	init_structs(t_philo *philo, t_input *input, char **av, int ac)
+void	init_structs(t_philo *philo, t_input *input,
+		char **av, unsigned long long ac)
 {
-	int	i;
+	unsigned long long	i;
 
-	i = -1;
+	i = 0;
 	init_input(input, av, ac);
-	while (++i < input->number_of_philosophers)
-		init_mutex(&input->forks[i]);
-	i = -1;
+	while (i < input->number_of_philosophers)
+		init_mutex(&input->forks[i++]);
+	i = 0;
 	init_philo(philo, input, i);
 	input->start_time = get_time_ms(0);
 	create_thread(&input->monitor, NULL, &monitor_r, (void *)philo);
-	i = -1;
-	while (++i < input->number_of_philosophers)
-		create_thread(&input->philo[i], NULL, &routine, (void *)&philo[i]);
+	i = 0;
+	while (i < input->number_of_philosophers)
+		(create_thread(&input->philo[i], NULL, &routine,
+				(void *)&philo[i]), i++);
 }

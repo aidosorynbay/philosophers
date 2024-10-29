@@ -4,7 +4,7 @@ OBJS  =  ${SRCS:.c=.o}
 
 CC    =  cc
 
-CFLAGS  =  -Wall -Werror -Wextra -O3 -g3 -pthread
+CFLAGS  =  -Wall -Werror -Wextra -pthread
 
 NAME  =  philo
 
@@ -24,7 +24,7 @@ fclean  :  clean
 
 re    :  fclean ${NAME}
 
-sanitize: CFLAGS += -fsanitize=undefined,thread -g3 -O3 
+sanitize: CFLAGS += -fsanitize=undefined,thread,unsigned-integer-overflow,implicit-conversion,local-bounds,implicit-integer-arithmetic-value-change,implicit-conversion,integer -g3 -O3 
 sanitize: re
 
 .PHONY: all clean fclean re sanitize

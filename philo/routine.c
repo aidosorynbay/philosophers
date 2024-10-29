@@ -6,15 +6,15 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 22:21:57 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/28 21:06:45 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/29 19:22:01 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	c_sleep(t_philo *philo, int time_to)
+void	c_sleep(t_philo *philo, unsigned long long time_to)
 {
-	int	start_time;
+	unsigned long long	start_time;
 
 	start_time = get_time_ms(philo->input->start_time);
 	while (!check_if_dead(philo) && get_time_ms(philo->input->start_time)
@@ -26,7 +26,7 @@ void	eating(t_philo *philo)
 {
 	safe_mutex_lock(&philo->input->printf_mutex);
 	if (!check_if_dead(philo))
-		printf("\033[32m%d %d is eating\033[0m\n",
+		printf("\033[32m%llu %llu is eating\033[0m\n",
 			get_time_ms(philo->input->start_time), philo->index + 1);
 	safe_mutex_unlock(&philo->input->printf_mutex);
 	c_sleep(philo, philo->input->time_to_eat);
@@ -36,7 +36,7 @@ void	sleeping(t_philo *philo)
 {
 	safe_mutex_lock(&philo->input->printf_mutex);
 	if (!check_if_dead(philo))
-		printf("\033[35m%d %d is sleeping\033[0m\n",
+		printf("\033[35m%llu %llu is sleeping\033[0m\n",
 			get_time_ms(philo->input->start_time), philo->index + 1);
 	safe_mutex_unlock(&philo->input->printf_mutex);
 	c_sleep(philo, philo->input->time_to_sleep);
@@ -46,7 +46,7 @@ void	thinking(t_philo *philo)
 {
 	safe_mutex_lock(&philo->input->printf_mutex);
 	if (!check_if_dead(philo))
-		printf("%d %d is thinking\n",
+		printf("%llu %llu is thinking\n",
 			get_time_ms(philo->input->start_time), philo->index + 1);
 	safe_mutex_unlock(&philo->input->printf_mutex);
 }

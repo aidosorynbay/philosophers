@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 20:18:15 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/28 21:04:17 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/29 19:16:54 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_taken_fork(t_philo *philo)
 {
 	safe_mutex_lock(&philo->input->printf_mutex);
 	if (!check_if_dead(philo))
-		printf("\033[34m%d %d has taken a fork\033[0m\n",
+		printf("\033[34m%llu %llu has taken a fork\033[0m\n",
 			get_time_ms(philo->input->start_time), philo->index + 1);
 	safe_mutex_unlock(&philo->input->printf_mutex);
 }
@@ -67,5 +67,5 @@ void	release_forks(t_philo *philo)
 	safe_mutex_unlock(philo->my_fork);
 	safe_mutex_unlock(philo->next_fork);
 	if (philo->index % 2 == 0 && philo->input->number_of_philosophers % 2)
-		usleep(300);
+		usleep(1000);
 }

@@ -6,32 +6,32 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:36:25 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/28 20:42:16 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:34:41 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	ft_isdigit(int c)
+static unsigned long long	ft_isdigit(unsigned long long c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
 }
 
-static int	value_checker(char *str)
+static unsigned long long	value_checker(char *str)
 {
-	int	num;
+	unsigned long long	num;
 
 	num = ft_atoi(str);
-	if (num == 0 || num < 0)
+	if (num == 0)
 		return (0);
 	return (1);
 }
 
-static int	check_if_only_digits(char *str)
+static unsigned long long	check_if_only_digits(char *str)
 {
-	int	i;
+	unsigned long long	i;
 
 	i = 0;
 	while (str[i] != '\0')
@@ -43,7 +43,7 @@ static int	check_if_only_digits(char *str)
 	return (1);
 }
 
-static int	check_minimum_time(char **av)
+static unsigned long long	check_minimum_time(char **av)
 {
 	if (ft_atoi(av[2]) < 60)
 		return (0);
@@ -54,9 +54,9 @@ static int	check_minimum_time(char **av)
 	return (1);
 }
 
-int	parsing_check(int ac, char **av)
+unsigned long long	parsing_check(unsigned long long ac, char **av)
 {
-	int	i;
+	unsigned long long	i;
 
 	i = 0;
 	if (ac != 5 && ac != 6)

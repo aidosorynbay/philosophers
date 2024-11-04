@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 22:21:57 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/29 19:22:01 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/11/04 10:19:08 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->input->number_of_philosophers == 1)
+	if (philo->num_of_philo == 1)
 		return (one_philo(philo), NULL);
 	c_sleep(philo, philo->initial_wait);
 	while (!check_if_dead(philo))

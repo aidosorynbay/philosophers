@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:47:11 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/29 20:36:47 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/11/04 10:18:38 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct t_sphilo
 {
 	unsigned long long				index;
 	t_input							*input;
+	unsigned long long				num_of_philo;
 	unsigned long long				time_since_last_meal;
 	pthread_mutex_t					t_since_last_meal_mutex;
 	unsigned long long				meals_eaten;

@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 20:56:49 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/29 20:33:56 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/11/04 10:13:18 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	dying_sequence(t_philo *philo, unsigned long long i)
 	safe_mutex_unlock(&philo[i].input->is_dead_mutex);
 	safe_mutex_lock(&philo[i].input->printf_mutex);
 	printf("\033[31m%llu %llu died\033[0m\n",
-		get_time_ms(philo[i].input->start_time) - 1, philo[i].index);
+		get_time_ms(philo[i].input->start_time), philo[i].index);
 	safe_mutex_unlock(&philo[i].input->printf_mutex);
 }
 

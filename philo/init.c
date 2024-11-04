@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 19:20:58 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/10/29 20:32:43 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/11/04 10:18:59 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void	init_philo(t_philo *philo, t_input *input, unsigned long long i)
 		philo[i].index = i;
 		philo[i].input = input;
 		philo[i].meals_eaten = 0;
+		philo[i].num_of_philo = input->number_of_philosophers;
 		philo[i].my_fork = &input->forks[i];
 		philo[i].next_fork = &input->forks[(i + 1)
 			% input->number_of_philosophers];
